@@ -74,12 +74,14 @@ print(sprintf("accuracy: %.3f percent", 100*accuracy))
 
 # Plot confusion matrix
 plt <- as.data.frame(conf_mat)
+plt$NB_e1071_Pred  <- factor(plt$NB_e1071_Pred , levels=rev(levels(plt$NB_e1071_Pred )))
+(plt)
 
 ggplot(plt, aes(NB_e1071_Pred, DF_Test_Labels, fill= Freq)) +
   geom_tile() + geom_text(aes(label=Freq),size=8) +
   scale_fill_gradient(low="white", high="#009194",limits = c(0,max(plt$Freq)))+
   labs(x = "Reference",y = "Prediction") +
-  scale_x_discrete(labels=c("No","Yes")) +
+  scale_x_discrete(labels=c("Yes","No")) +
   scale_y_discrete(labels=c("No","Yes")) +
   theme(axis.text=element_text(size=14),
         axis.title=element_text(size=14,face="bold"),
